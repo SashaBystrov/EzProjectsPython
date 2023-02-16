@@ -19,7 +19,7 @@ def NewPassword():
             StrLower = listpas.append(chr(random.randint(97, 122)))
         return listpas[0:dlinapassword]
     else:
-        print("Минимальная длина пароля - 7 символов")
+        print("Ошибка! Минимальная длина пароля - 7 символов")
         NewPassword()
 
 
@@ -48,7 +48,7 @@ def PrPassword():
 
     else:
         print("Ваш пароль небезопасен!")
-        print(NewPassword())
+        print(*NewPassword())
     # Определяем степень защищенности пароля
 
 
