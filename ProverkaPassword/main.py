@@ -1,19 +1,25 @@
 import getpass
 import string
 import random
+import time
 
 def NewPassword():
     '''Создание нового пароля'''
+    time.sleep(1)
+    print("Обработка...")
+    time.sleep(2)
+    print("Создаем новый пароль!")
+    time.sleep(1)
     dlinapassword = int(input("Введите длину пароля: "))
-    if dlinapassword >= 9:
-        newpassword = ""
-        for i in range(dlinapassword):
-            Digit = random.randint(1, 9)
-            StrUpper = chr(random.randint(65, 90))
-            StrLower = chr(random.randint(97, 122))
-            newpassword = StrUpper + str(Digit) + StrLower
-        return newpassword
+    listpas = []
+    if dlinapassword >= 7:
+        for i in range(dlinapassword // 2):
+            Digit = listpas.append(random.randint(1, 9))
+            StrUpper = listpas.append(chr(random.randint(65, 90)))
+            StrLower = listpas.append(chr(random.randint(97, 122)))
+        return listpas[0:dlinapassword]
     else:
+        print("Минимальная длина пароля - 7 символов")
         NewPassword()
 
 
@@ -21,10 +27,11 @@ def NewPassword():
 def PrPassword():
     '''Определение степени защищенности пароля'''
     # Запрос пароля из консоли
-    Password = getpass.getpass('Enter the password: ')
+    Password = str(input("Введите пароль: "))
+    #Password = getpass.getpass('Enter the password: ')
     # Определяем количество строчных, прописных букв и цифр
     kol_lower = kol_upper = kol_digits = kol_el = 0
-    if len(Password) >= 9:
+    if len(Password) >= 7:
         for char in list(Password):
             if char.islower():
                 kol_lower += 1
@@ -38,7 +45,9 @@ def PrPassword():
                 kol_digits += 1
                 if kol_upper >= 2:
                     kol_el += 1
+
     else:
+        print("Ваш пароль небезопасен!")
         print(NewPassword())
     # Определяем степень защищенности пароля
 
