@@ -40,9 +40,9 @@ def PrPassword():
     kol_lower = kol_upper = kol_digits = kol_el = 0
     if len(Password) >= 7:
         for char in list(Password):
-            if char.islower():
+            if char in string.ascii_lowercase:
                 kol_lower += 1
-            elif char.isupper():
+            elif char in string.ascii_uppercase:
                 kol_upper += 1
             elif char in string.digits:
                 kol_digits += 1
