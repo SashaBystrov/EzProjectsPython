@@ -57,7 +57,7 @@ def PrPassword():
         NewPassword()
 
 if __name__ == "__main__":
-    print("\033[31m{}".format("PROGRAMME SECURITY PASSWORDS"))
+    print("\033[31m{}".format("SECURITY PASSWORD CHECK"))
     print("\033[3m\033[34m{}".format("ФУНКЦИИ: \n 1) Проверить пароль на безопасность \n 2) Создать новый пароль"))
     nomer = int(input("Выберите действие - "))
     if nomer == 1:
