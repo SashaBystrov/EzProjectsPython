@@ -1,55 +1,68 @@
-import getpass
 import string
 import random
+import sys
 import time
+import pyperclip
 
 def NewPassword():
     '''Создание нового пароля'''
-    time.sleep(1)
-    print("Обработка...")
+    print("\033[35m{}".format("Обработка..."))
     time.sleep(2)
     print("Создаем новый пароль!")
     time.sleep(1)
-    dlinapassword = int(input("Введите длину пароля: "))
-    listpas = []
+    dlinapassword = int(input("Введите длину пароля(минимальаня длина - 7 символов): "))
     if dlinapassword >= 7:
-        for i in range(dlinapassword // 2):
-            Digit = listpas.append(random.randint(1, 9))
-            StrUpper = listpas.append(chr(random.randint(65, 90)))
-            StrLower = listpas.append(chr(random.randint(97, 122)))
-        return listpas[0:dlinapassword]
+        '''Создаем 5 уникальных паролей'''
+        k = 1
+        SavePassword = ""
+        while k != 6:
+            Password = ""
+            for i in range(dlinapassword):
+                Digit = random.randint(1, 9)
+                StrUpper = chr(random.randint(65, 90))
+                StrLower = chr(random.randint(97, 122))
+                Password += StrUpper + str(Digit) + StrLower
+            SavePassword = Password[0:dlinapassword]
+            print("\033[33m{}-{}".format( k, Password[0:dlinapassword]))
+            k += 1
+        pyperclip.copy(SavePassword[0:dlinapassword])
+        print("\033[34m{}".format("Последний пароль был скопирован в буфер обмена!"))
+        print("ПРОГРАММА ЗАВЕРШЕНА ")
+        sys.exit()
     else:
-        print("Ошибка! Минимальная длина пароля - 7 символов")
+        print("\033[31m{}".format("Ошибка! Минимальная длина пароля - 7 символов"))
         NewPassword()
-
-
 
 def PrPassword():
     '''Определение степени защищенности пароля'''
-    # Запрос пароля из консоли
-    Password = str(input("Введите пароль: "))
-    #Password = getpass.getpass('Enter the password: ')
+    Password = str(input("\033[32m{}".format("Введите пароль: ")))
     # Определяем количество строчных, прописных букв и цифр
     kol_lower = kol_upper = kol_digits = kol_el = 0
     if len(Password) >= 7:
         for char in list(Password):
             if char.islower():
                 kol_lower += 1
-                if kol_lower >= 2:
-                    kol_el += 1
             elif char.isupper():
                 kol_upper += 1
-                if kol_upper >= 3:
-                    kol_el += 1
             elif char in string.digits:
                 kol_digits += 1
-                if kol_upper >= 2:
-                    kol_el += 1
-
+        if kol_lower >= 2 and kol_upper >= 3  and kol_digits >= 2:
+            print("\033[33m{}".format("Ваш пароль безопасен! \n ПРОГРАММА ЗАВЕРШЕНА"))
+            sys.exit()
+        else:
+            print("\033[31m{}".format("Ваш пароль небезопасен!"))
+            NewPassword()
     else:
-        print("Ваш пароль небезопасен!")
-        print(*NewPassword())
-    # Определяем степень защищенности пароля
+        print("\033[31m{}".format("Ваш пароль небезопасен!"))
+        NewPassword()
 
-
-PrPassword()
+if __name__ == "__main__":
+    print("\033[31m{}".format("PROGRAMME SECURITY PASSWORDS"))
+    print("\033[3m\033[34m{}".format("ФУНКЦИИ: \n 1) Проверить пароль на безопасность \n 2) Создать новый пароль"))
+    nomer = int(input("Выберите действие - "))
+    if nomer == 1:
+        PrPassword()
+    elif nomer == 2:
+        NewPassword()
+    else:
+        print("\033[31m{}".format("Error! Invlaid value! "))
